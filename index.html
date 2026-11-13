@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPELLLOCK | Password Forge</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: #f8e8c0;
+    font-family: "Georgia", serif;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            #4b1737 0%,
+            transparent 45%
+        ),
+        radial-gradient(
+            ellipse at 10% 80%,
+            #172c50 0%,
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #080912,
+            #17101e 55%,
+            #090b16
+        );
+
+    background:
+    linear-gradient(
+        rgba(7, 8, 20, 0.72),
+        rgba(12, 8, 25, 0.88)
+    ),
+    url("https://cdn.wallpapersafari.com/48/75/t87hILM.jpg")
+    center / cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: #19142f;
+    border: 1px solid #8d72c7;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 35px #8d72c733;
+}
+
+.badge {
+    color: #e8c979;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #bdb4d5;
+    margin-bottom: 25px;
+}
+
+.password-box {
+    display: flex;
+    gap: 10px;
+    background: #100d24;
+    border: 1px solid #5e4c89;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+#password {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    color: #e8c979;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 11px 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.copy-btn {
+    background: #5e4c89;
+    color: white;
+}
+
+.generate-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #8b5cf6, #6d4cc4);
+    color: white;
+    font-size: 16px;
+    padding: 15px;
+    margin: 18px 0;
+}
+
+.section {
+    background: #17132d;
+    border: 1px solid #342a4e;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+h2, h3 {
+    color: #e8c979;
+    margin-bottom: 12px;
+}
+
+h2 {
+    font-size: 17px;
+}
+
+h3 {
+    font-size: 15px;
+}
+
+.strength-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#strengthText {
+    color: #e8c979;
+    font-weight: bold;
+}
+
+.strength-bar {
+    height: 8px;
+    background: #342a4e;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#strengthFill {
+    height: 100%;
+    width: 0%;
+    background: #e8c979;
+    transition: 0.3s;
+}
+
+#entropy {
+    color: #bdb4d5;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.length-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+
+#lengthValue {
+    color: #e8c979;
+    font-weight: bold;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #a78bfa;
+    margin-bottom: 15px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 14px;
+}
+
+input[type="checkbox"] {
+    accent-color: #a78bfa;
+    margin-right: 7px;
+}
+
+.checklist p {
+    margin: 8px 0;
+    color: #bdb4d5;
+    font-size: 14px;
+}
+
+#suggestions {
+    color: #bdb4d5;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+#message {
+    text-align: center;
+    color: #e8c979;
+    font-size: 13px;
+    min-height: 20px;
+    margin-top: 10px;
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+}
+/* ✨ SPELLLOCK — Enchanted Theme Upgrade */
+
+body {
+    background:
+        radial-gradient(circle at 15% 15%, #34205f 0%, transparent 35%),
+        radial-gradient(circle at 85% 80%, #192d55 0%, transparent 40%),
+        linear-gradient(135deg, #080817, #111126, #09091a);
+    color: #f4efff;
+}
+
+.section {
+    background: rgba(20, 19, 43, 0.78);
+    border: 1px solid rgba(174, 125, 255, 0.25);
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(117, 65, 255, 0.08);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+}
+
+.section:hover {
+    border-color: rgba(190, 145, 255, 0.7);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.2);
+    transform: translateY(-3px);
+}
+
+h1 {
+    background: linear-gradient(90deg, #d8b4fe, #a78bfa, #67e8f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
+}
+
+button {
+    background: linear-gradient(110deg, #7c3aed, #4f46e5, #9333ea);
+    border: 1px solid rgba(221, 190, 255, 0.3);
+    box-shadow: 0 0 18px rgba(124, 58, 237, 0.3);
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.6);
+}
+
+input[type="range"] {
+    accent-color: #c084fc;
+}
+
+input[type="checkbox"] {
+    accent-color: #a78bfa;
+}
+
+@keyframes magicalGlow {
+    0%, 100% {
+        box-shadow: 0 0 12px rgba(139, 92, 246, 0.15);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(139, 92, 246, 0.35);
+    }
+}
+
+.section h3 {
+    color: #d8b4fe;
+}
+
+#password {
+    border: 1px solid #8b5cf6;
+    box-shadow: 0 0 18px rgba(139, 92, 246, 0.2);
+    animation: magicalGlow 3s infinite;
+}
+/* Magical floating glow */
+body::before {
+    content: "✦";
+    position: fixed;
+    top: 8%;
+    left: 8%;
+    font-size: 35px;
+    color: #c084fc;
+    opacity: 0.4;
+    animation: floatMagic 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+body::after {
+    content: "✧";
+    position: fixed;
+    bottom: 10%;
+    right: 8%;
+    font-size: 45px;
+    color: #67e8f9;
+    opacity: 0.4;
+    animation: floatMagic 5s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes floatMagic {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-18px) rotate(20deg);
+    }
+}
+/* 🪄 SPELLLOCK — Hogwarts Enchantment */
+
+body {
+    background:
+        radial-gradient(ellipse at top, #35204f 0%, transparent 55%),
+        linear-gradient(160deg, #090813, #171020 55%, #090813);
+    color: #f8edda;
+}
+
+/* Hogwarts gold title */
+h1 {
+    background: linear-gradient(
+        90deg,
+        #f8e7a1,
+        #d5a84b,
+        #fff2c2,
+        #b8872c
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 28px rgba(218, 173, 75, 0.25);
+}
+
+/* Theme badge */
+.badge {
+    color: #f6d77a;
+    background: rgba(103, 30, 45, 0.35);
+    border: 1px solid #b88a38;
+    letter-spacing: 2px;
+    box-shadow: 0 0 15px rgba(184, 138, 56, 0.15);
+}
+
+/* Magical glass panels */
+.section {
+    background: linear-gradient(
+        145deg,
+        rgba(37, 26, 48, 0.95),
+        rgba(16, 13, 27, 0.96)
+    );
+    border: 1px solid rgba(202, 164, 83, 0.4);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+}
+
+.section:hover {
+    border-color: #e0bd68;
+    box-shadow: 0 0 24px rgba(218, 173, 75, 0.18);
+    transform: translateY(-2px);
+}
+
+.section h3 {
+    color: #f0d58c;
+}
+
+/* Wand-like button */
+button {
+    background: linear-gradient(110deg, #6f1d35, #9b2948, #6f1d35);
+    color: #fff4dc;
+    border: 1px solid #d5ad59;
+    box-shadow: 0 0 18px rgba(155, 41, 72, 0.35);
+    transition: 0.25s ease;
+}
+
+button:hover {
+    background: linear-gradient(110deg, #922849, #bd3b5d);
+    box-shadow: 0 0 30px rgba(218, 173, 75, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Magical password display */
+#password {
+    background: rgba(10, 8, 20, 0.9);
+    color: #f7df91;
+    border: 1px solid #c9a34f;
+    box-shadow: 0 0 20px rgba(201, 163, 79, 0.2);
+}
+
+/* Gold slider and checkboxes */
+input[type="range"],
+input[type="checkbox"] {
+    accent-color: #d5ad59;
+}
+
+/* Magical subtitle */
+.subtitle {
+    color: #d8c7a1;
+    letter-spacing: 1px;
+}
+
+/* Floating magic symbols */
+body::before {
+    content: "✦  ✧  ⋆  ✦";
+    position: fixed;
+    top: 8%;
+    left: 5%;
+    color: #d5ad59;
+    font-size: 22px;
+    opacity: 0.35;
+    letter-spacing: 20px;
+    pointer-events: none;
+    animation: floatMagic 5s ease-in-out infinite;
+}
+
+body::after {
+    content: "✧  ✦  ⋆  ✧";
+    position: fixed;
+    bottom: 8%;
+    right: 5%;
+    color: #c7a4ec;
+    font-size: 24px;
+    opacity: 0.3;
+    letter-spacing: 18px;
+    pointer-events: none;
+    animation: floatMagic 6s ease-in-out infinite reverse;
+}
+
+@keyframes floatMagic {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(8deg);
+    }
+}
+/* ✨ Enchanted Harry Potter Theme */
+
+body {
+    background:
+        radial-gradient(circle at 15% 20%, #30205c 0%, transparent 35%),
+        radial-gradient(circle at 85% 80%, #172c55 0%, transparent 35%),
+        #080b1c;
+    color: #f5e9c8;
+}
+
+.container {
+    border: 1px solid rgba(218, 178, 86, 0.65);
+    box-shadow:
+        0 0 25px rgba(143, 99, 255, 0.2),
+        0 0 45px rgba(218, 178, 86, 0.12);
+}
+
+h1 {
+    color: #f4d27a;
+    text-shadow: 0 0 18px rgba(244, 210, 122, 0.45);
+    letter-spacing: 3px;
+}
+
+.badge {
+    color: #f4d27a;
+    border: 1px solid rgba(244, 210, 122, 0.5);
+    background: rgba(244, 210, 122, 0.08);
+}
+
+button {
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(190, 150, 255, 0.5);
+}
+
+.section {
+    border: 1px solid rgba(190, 150, 255, 0.18);
+    background: rgba(255, 255, 255, 0.025);
+    transition: all 0.3s ease;
+}
+
+.section:hover {
+    border-color: rgba(244, 210, 122, 0.5);
+    box-shadow: 0 0 18px rgba(143, 99, 255, 0.12);
+}
+body {
+    background:
+        linear-gradient(rgba(5, 8, 25, 0.82), rgba(5, 8, 25, 0.92)),
+        url("magic-castle.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+.magic-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.magic-gallery img {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid #d6b568;
+    box-shadow: 0 0 15px rgba(180, 130, 255, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.magic-gallery img:hover {
+    transform: scale(1.08);
+}
+/* ✨ SPELLLOCK — Enchanted Hogwarts Experience */
+
+body {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(117, 65, 180, 0.3), transparent 40%),
+        linear-gradient(135deg, #080714, #171025, #080714);
+    color: #f8edda;
+}
+
+/* Magical title */
+h1 {
+    font-size: clamp(38px, 6vw, 65px);
+    letter-spacing: 5px;
+    background: linear-gradient(90deg, #fff0b3, #d5a84b, #fff8dc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(218, 173, 75, 0.4));
+}
+
+/* Harry Potter image gallery */
+.magic-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin: 30px auto;
+    flex-wrap: wrap;
+}
+
+.magic-gallery img {
+    width: 145px;
+    height: 175px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #c9a34f;
+    box-shadow: 0 0 20px rgba(183, 135, 49, 0.25);
+    transition: all 0.4s ease;
+    filter: brightness(0.85) sepia(0.1);
+}
+
+.magic-gallery img:hover {
+    transform: translateY(-10px) scale(1.06);
+    filter: brightness(1.1);
+    box-shadow: 0 0 35px rgba(218, 173, 75, 0.6);
+}
+
+/* Enchanted panels */
+.section {
+    background: linear-gradient(
+        145deg,
+        rgba(34, 23, 48, 0.95),
+        rgba(12, 10, 24, 0.95)
+    );
+    border: 1px solid rgba(218, 173, 75, 0.35);
+    border-radius: 18px;
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+}
+
+.section:hover {
+    border-color: #e9c66e;
+    box-shadow: 0 0 25px rgba(218, 173, 75, 0.15);
+}
+
+/* Magical buttons */
+button {
+    background: linear-gradient(120deg, #6f1d35, #9b2948, #6f1d35);
+    border: 1px solid #d5ad59;
+    color: #fff4dc;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(155, 41, 72, 0.25);
+    transition: 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px rgba(218, 173, 75, 0.4);
+}
+
+/* Golden magical password display */
+#password {
+    color: #ffe9a8;
+    border: 1px solid #d5ad59;
+    box-shadow: 0 0 20px rgba(218, 173, 75, 0.2);
+}
+
+/* Subtle enchanted atmosphere */
+body::before {
+    content: "✦      ✧       ✦       ⋆";
+    position: fixed;
+    top: 7%;
+    left: 4%;
+    color: #e3bd67;
+    font-size: 24px;
+    opacity: 0.3;
+    letter-spacing: 18px;
+    pointer-events: none;
+    animation: floatingMagic 6s ease-in-out infinite;
+}
+
+body::after {
+    content: "✧      ⋆       ✦       ✧";
+    position: fixed;
+    bottom: 7%;
+    right: 4%;
+    color: #c7a4ec;
+    font-size: 25px;
+    opacity: 0.3;
+    letter-spacing: 18px;
+    pointer-events: none;
+    animation: floatingMagic 7s ease-in-out infinite reverse;
+}
+
+@keyframes floatingMagic {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-18px);
+    }
+}
+.magic-spark {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    background: #FFD700;
+    pointer-events: none;
+    z-index: 9999;
+
+    clip-path: polygon(
+        50% 0%,
+        63% 35%,
+        100% 50%,
+        63% 65%,
+        50% 100%,
+        37% 65%,
+        0% 50%,
+        37% 35%
+    );
+
+    filter: drop-shadow(0 0 5px #FFD700)
+            drop-shadow(0 0 12px #FFA500)
+            drop-shadow(0 0 20px #DAA520);
+
+    animation: sparkFade 0.9s ease-out forwards;
+}
+@keyframes sparkFade {
+    0% {
+        opacity: 1;
+        transform: scale(1.3) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) rotate(180deg);
+    }
+}
+/* Magical password display */
+#password,
+#passwordOutput,
+.password-display {
+    background: linear-gradient(
+        135deg,
+        rgba(35, 20, 48, 0.95),
+        rgba(12, 15, 32, 0.98)
+    ) !important;
+
+    color: #ffe6a3 !important;
+    border: 1px solid rgba(255, 215, 120, 0.65) !important;
+    border-radius: 16px !important;
+
+    box-shadow:
+        0 0 15px rgba(255, 190, 60, 0.12),
+        inset 0 0 18px rgba(255, 190, 60, 0.06) !important;
+
+    font-family: "Courier New", monospace !important;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+#password:focus,
+#passwordOutput:focus,
+.password-display:focus {
+    outline: none;
+    border-color: #ffd76a !important;
+
+    box-shadow:
+        0 0 20px rgba(255, 215, 106, 0.35),
+        inset 0 0 15px rgba(255, 215, 106, 0.1) !important;
+}
+/* ===== SPELLLOCK ENCHANTED THEME ===== */
+
+.container {
+    max-width: 1100px !important;
+    width: 95% !important;
+    padding: 35px !important;
+
+    background: rgba(13, 10, 25, 0.82) !important;
+    border: 1px solid rgba(255, 215, 130, 0.35) !important;
+    border-radius: 24px !important;
+
+    box-shadow:
+        0 0 40px rgba(105, 40, 120, 0.22),
+        0 0 80px rgba(255, 190, 70, 0.08) !important;
+
+    backdrop-filter: blur(16px);
+}
+
+/* Magical headings */
+h1, h2, h3 {
+    color: #ffe6a3 !important;
+    font-family: Georgia, serif !important;
+    text-shadow:
+        0 0 10px rgba(255, 215, 106, 0.4),
+        0 0 25px rgba(255, 180, 50, 0.15);
+}
+
+/* Magical buttons */
+button {
+    background: linear-gradient(
+        135deg,
+        #8b5a18,
+        #d6a94b,
+        #8b5a18
+    ) !important;
+
+    color: #160d1d !important;
+    border: 1px solid #ffe6a3 !important;
+    border-radius: 12px !important;
+
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    box-shadow: 0 0 15px rgba(255, 190, 70, 0.15);
+
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+
+    box-shadow:
+        0 0 20px rgba(255, 215, 106, 0.55),
+        0 0 40px rgba(255, 180, 50, 0.2);
+}
+
+/* Magical cards */
+.section {
+    background: linear-gradient(
+        145deg,
+        rgba(43, 27, 53, 0.88),
+        rgba(17, 19, 38, 0.92)
+    ) !important;
+
+    border: 1px solid rgba(255, 215, 130, 0.2) !important;
+    border-radius: 18px !important;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 215, 130, 0.55) !important;
+}
+
+/* Inputs */
+input, select {
+    background: rgba(9, 10, 24, 0.95) !important;
+    color: #ffe6a3 !important;
+
+    border: 1px solid rgba(255, 215, 130, 0.4) !important;
+    border-radius: 10px !important;
+
+    padding: 12px !important;
+}
+
+input:focus, select:focus {
+    outline: none;
+
+    border-color: #ffd76a !important;
+
+    box-shadow: 0 0 15px rgba(255, 215, 106, 0.25);
+}
+
+/* Magical section text */
+p, label {
+    color: #d8cce9;
+}
+
+/* Smooth appearance */
+* {
+    scroll-behavior: smooth;
+}
+/* ===== ENCHANTED ATMOSPHERE ===== */
+
+body {
+    position: relative;
+    isolation: isolate;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(2px 2px at 15% 20%, #ffe7a0 70%, transparent),
+        radial-gradient(2px 2px at 75% 35%, #e8c6ff 70%, transparent),
+        radial-gradient(3px 3px at 45% 75%, #ffd76a 70%, transparent),
+        radial-gradient(2px 2px at 90% 80%, #ffe7a0 70%, transparent),
+        radial-gradient(2px 2px at 30% 60%, #ffffff 70%, transparent);
+
+    background-size: 250px 250px;
+    opacity: 0.45;
+
+    animation: enchantedStars 18s linear infinite;
+}
+
+@keyframes enchantedStars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 250px 500px;
+    }
+}
+
+/* Magical glow behind the main panel */
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 215, 106, 0.12),
+        transparent,
+        rgba(170, 90, 220, 0.12),
+        transparent
+    );
+
+    background-size: 300% 300%;
+    animation: magicalGlow 8s ease infinite;
+}
+
+@keyframes magicalGlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+/* ===== INTERACTIVE WAND SPOTLIGHT ===== */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    background: radial-gradient(
+        350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 205, 90, 0.13),
+        rgba(160, 90, 220, 0.06) 40%,
+        transparent 75%
+    );
+
+    transition: background 0.12s ease;
+}
+
+/* Keep your content above the spotlight */
+.container {
+    position: relative;
+    z-index: 1;
+}
+/* ===== MAGICAL IMAGE GALLERY ===== */
+
+.magic-gallery {
+    margin-top: 35px;
+    text-align: center;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.gallery-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 215, 130, 0.35);
+    background: #120d20;
+    transition: all 0.4s ease;
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    filter: brightness(0.75);
+}
+
+.gallery-card h4 {
+    color: #ffe6a3;
+    padding: 12px;
+    margin: 0;
+    font-family: Georgia, serif;
+    letter-spacing: 1px;
+}
+
+.gallery-card:hover {
+    transform: translateY(-8px);
+    border-color: #ffd76a;
+    box-shadow: 0 0 25px rgba(255, 215, 106, 0.25);
+}
+
+.gallery-card:hover img {
+    transform: scale(1.08);
+    filter: brightness(1);
+}
+
+@media (max-width: 700px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Enchanted image effects */
+img {
+    border-radius: 16px;
+    transition: all 0.4s ease;
+    filter: brightness(0.85) saturate(1.15);
+}
+
+img:hover {
+    transform: scale(1.06);
+    filter: brightness(1.1) saturate(1.3);
+    box-shadow: 0 0 25px rgba(255, 215, 106, 0.5);
+}
+
+/* Golden frame */
+img {
+    border: 1px solid rgba(255, 215, 106, 0.4);
+}
+/* ===== SPELLLOCK MAGICAL CASTLE BACKGROUND ===== */
+
+body {
+    background-image:
+        linear-gradient(
+            rgba(5, 5, 20, 0.48),
+            rgba(8, 6, 25, 0.72)
+        ),
+        url("hogwarts-bg.png") !important;
+
+    background-size: cover !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-color: #080817;
+}
+/* Darker magical background */
+body {
+    background-image:
+        linear-gradient(
+            rgba(4, 4, 15, 0.72),
+            rgba(5, 4, 18, 0.82)
+        ),
+        url("hogwarts-bg.png") !important;
+
+    background-size: cover !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+}
+/* Rich and vibrant magical background */
+body {
+    background-image:
+        linear-gradient(
+            rgba(8, 5, 25, 0.30),
+            rgba(8, 5, 25, 0.42)
+        ),
+        url("hogwarts-bg.png") !important;
+
+    background-size: cover !important;
+    background-position: center center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-color: #080817;
+}
+/* Cinematic SPELLLOCK background */
+body {
+    background-image:
+        linear-gradient(
+            rgba(9, 5, 30, 0.18),
+            rgba(9, 5, 30, 0.30)
+        ),
+        url("hogwarts-bg.png") !important;
+
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-color: #080817;
+}
+
+/* Subtle magical glow */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(112, 55, 190, 0.15), transparent 35%),
+        radial-gradient(circle at 85% 75%, rgba(218, 165, 32, 0.12), transparent 30%);
+    z-index: -1;
+}
+</style>
+</head>
+
+<body>
+
+<main class="container">
+
+    <div class="badge">⚡ ROGUEHACK • HARRY POTTER</div>
+
+    <h1>🪄 SPELLLOCK</h1>
+
+<div class="magic-gallery">
+
+    <img src="https://cdn.quasa.io/images/news/4tgBi5fuX97fqKKAx3qVUhxPaO3avmqj0EDt8uX7.jpg"
+         alt="Harry Potter and Hermione at Hogwarts">
+
+    <img src="https://cdn.alza.cz/Foto/ImgGalery/Image/harry-potter-herci.jpg"
+         alt="Harry, Ron and Hermione at Hogwarts">
+
+    <img src="https://de.web.img3.acsta.net/img/e8/2f/e82f033928a2f0c2b288c9cc88279087.jpg"
+         alt="Harry Potter movie poster">
+
+</div>
+    <p class="subtitle">
+    Forge stronger secrets. Break the ordinary.
+</p>
+
+    <div class="password-box">
+        <input id="password" type="text" readonly
+               placeholder="Your magical password appears here">
+        <button class="copy-btn" onclick="copyPassword()">Copy</button>
+    </div>
+
+    <section class="section">
+        <div class="strength-heading">
+            <span>Password Strength</span>
+            <span id="strengthText">Not generated</span>
+        </div>
+
+        <div class="strength-bar">
+            <div id="strengthFill"></div>
+        </div>
+
+        <p id="entropy">Estimated entropy: —</p>
+    </section>
+
+    <section class="section">
+        <h2>⚙️ Customize Your Spell</h2>
+
+        <div class="length-row">
+            <label for="length">Password Length</label>
+            <span id="lengthValue">16</span>
+        </div>
+
+        <input type="range" id="length" min="8" max="32" value="16">
+
+        <div class="options">
+            <label><input type="checkbox" id="uppercase" checked>Uppercase</label>
+            <label><input type="checkbox" id="lowercase" checked>Lowercase</label>
+            <label><input type="checkbox" id="numbers" checked>Numbers</label>
+            <label><input type="checkbox" id="symbols" checked>Symbols</label>
+        </div>
+    </section>
+
+    <button class="generate-btn" onclick="generatePassword()">
+        ✨ Forge Password
+    </button>
+
+    <section class="section">
+        <h3>🔐 Security Checklist</h3>
+        <div class="checklist">
+            <p id="checkLength">○ At least 12 characters</p>
+            <p id="checkUpper">○ Contains uppercase letters</p>
+            <p id="checkLower">○ Contains lowercase letters</p>
+            <p id="checkNumber">○ Contains numbers</p>
+            <p id="checkSymbol">○ Contains special symbols</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h3>🛡️ Security Suggestions</h3>
+        <div id="suggestions">
+            Forge a password to receive security suggestions.
+        </div>
+    </section>
+    <section class="section">
+    <h3>🕵️ Weak Password Audit</h3>
+    <div id="auditResult">
+        Generate a password to scan for common patterns.
+    </div>
+</section>
+
+    <p id="message"></p>
+
+</main>
+
+<script>
+const lengthSlider = document.getElementById("length");
+const lengthValue = document.getElementById("lengthValue");
+const passwordField = document.getElementById("password");
+const strengthText = document.getElementById("strengthText");
+const strengthFill = document.getElementById("strengthFill");
+const entropyText = document.getElementById("entropy");
+const message = document.getElementById("message");
+const suggestions = document.getElementById("suggestions");
+
+lengthSlider.addEventListener("input", function () {
+    lengthValue.textContent = lengthSlider.value;
+
+    if (passwordField.value) {
+        analyzePassword(passwordField.value);
+    }
+});
+
+document.querySelectorAll(".options input").forEach(function (checkbox) {
+    checkbox.addEventListener("change", function () {
+        if (passwordField.value) {
+            analyzePassword(passwordField.value);
+        }
+    });
+});
+
+function generatePassword() {
+    let characters = "";
+    let requiredGroups = [];
+
+    if (document.getElementById("uppercase").checked) {
+        characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        requiredGroups.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    }
+
+    if (document.getElementById("lowercase").checked) {
+        characters += "abcdefghijklmnopqrstuvwxyz";
+        requiredGroups.push("abcdefghijklmnopqrstuvwxyz");
+    }
+
+    if (document.getElementById("numbers").checked) {
+        characters += "0123456789";
+        requiredGroups.push("0123456789");
+    }
+
+    if (document.getElementById("symbols").checked) {
+        characters += "!@#$%^&*()-_=+[]{}?";
+        requiredGroups.push("!@#$%^&*()-_=+[]{}?");
+    }
+
+    if (characters === "") {
+        message.textContent = "Choose at least one character type!";
+        return;
+    }
+
+    const length = Number(lengthSlider.value);
+
+    if (length < requiredGroups.length) {
+        message.textContent = "Increase the length to include all selected types.";
+        return;
+    }
+
+    let passwordArray = [];
+
+    // Ensure at least one character from every selected group
+    requiredGroups.forEach(function (group) {
+        passwordArray.push(randomCharacter(group));
+    });
+
+    // Fill remaining positions
+    while (passwordArray.length < length) {
+        passwordArray.push(randomCharacter(characters));
+    }
+
+    // Shuffle characters
+    for (let i = passwordArray.length - 1; i > 0; i--) {
+        const j = secureRandomIndex(i + 1);
+        [passwordArray[i], passwordArray[j]] =
+            [passwordArray[j], passwordArray[i]];
+    }
+
+    const password = passwordArray.join("");
+
+    passwordField.value = password;
+    message.textContent = "✨ A new spell has been forged!";
+
+    analyzePassword(password);
+    updateSuggestions(password);
+    runWeakPasswordAudit(password);
+    
+}
+
+function secureRandomIndex(max) {
+    const randomValues = new Uint32Array(1);
+    const limit = Math.floor(4294967296 / max) * max;
+
+    do {
+        crypto.getRandomValues(randomValues);
+    } while (randomValues[0] >= limit);
+
+    return randomValues[0] % max;
+}
+
+function randomCharacter(characters) {
+    return characters[secureRandomIndex(characters.length)];
+}
+
+function analyzePassword(password) {
+    const hasLength = password.length >= 12;
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSymbol = /[^A-Za-z0-9]/.test(password);
+
+    updateCheck("checkLength", hasLength, "At least 12 characters");
+    updateCheck("checkUpper", hasUpper, "Contains uppercase letters");
+    updateCheck("checkLower", hasLower, "Contains lowercase letters");
+    updateCheck("checkNumber", hasNumber, "Contains numbers");
+    updateCheck("checkSymbol", hasSymbol, "Contains special symbols");
+
+    let poolSize = 0;
+
+    if (hasUpper) poolSize += 26;
+    if (hasLower) poolSize += 26;
+    if (hasNumber) poolSize += 10;
+    if (hasSymbol) poolSize += 20;
+
+    const entropy = password.length * Math.log2(poolSize || 1);
+
+    entropyText.textContent =
+        "Estimated entropy: " + entropy.toFixed(1) + " bits";
+
+    let verdict;
+    let width;
+
+    if (entropy < 40 || password.length < 8) {
+        verdict = "Weak";
+        width = "30%";
+    } else if (entropy < 70) {
+        verdict = "Moderate";
+        width = "65%";
+    } else {
+        verdict = "Strong";
+        width = "100%";
+    }
+
+    strengthText.textContent = verdict;
+    strengthFill.style.width = width;
+
+    let tips = [];
+
+    if (password.length < 12) {
+        tips.push("Use at least 12 characters.");
+    }
+
+    if (!hasUpper) tips.push("Consider adding uppercase letters.");
+    if (!hasLower) tips.push("Consider adding lowercase letters.");
+    if (!hasNumber) tips.push("Consider adding numbers.");
+    if (!hasSymbol) tips.push("Consider adding symbols.");
+
+    if (verdict !== "Strong") {
+        tips.push("Increase the password length for better security.");
+    }
+
+    if (tips.length === 0) {
+        tips.push("Excellent! This password meets the app's strength checks.");
+    }
+
+    suggestions.innerHTML = tips.map(function (tip) {
+        return "• " + tip;
+    }).join("<br>");
+}
+
+function updateCheck(id, passed, label) {
+    const element = document.getElementById(id);
+
+    if (passed) {
+        element.textContent = "✓ " + label;
+        element.style.color = "#7ee787";
+    } else {
+        element.textContent = "○ " + label;
+        element.style.color = "#bdb4d5";
+    }
+}
+
+async function copyPassword() {
+    if (!passwordField.value) {
+        message.textContent = "Forge a password first!";
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(passwordField.value);
+        message.textContent = "Password copied!";
+    } catch (error) {
+        passwordField.select();
+        document.execCommand("copy");
+        message.textContent = "Password copied!";
+    }
+}
+function updateSuggestions(password) {
+    const suggestions = [];
+
+    if (password.length < 12) {
+        suggestions.push("Use at least 12 characters.");
+    }
+
+    if (!/[A-Z]/.test(password)) {
+        suggestions.push("Include uppercase letters.");
+    }
+
+    if (!/[a-z]/.test(password)) {
+        suggestions.push("Include lowercase letters.");
+    }
+
+    if (!/[0-9]/.test(password)) {
+        suggestions.push("Include numbers.");
+    }
+
+    if (!/[^A-Za-z0-9]/.test(password)) {
+        suggestions.push("Include special characters.");
+    }
+
+    const suggestionsBox = document.getElementById("suggestions");
+
+    if (suggestions.length === 0) {
+        suggestionsBox.innerHTML =
+            "✅ Excellent! This password meets the app's strength checks.";
+    } else {
+        suggestionsBox.innerHTML = suggestions
+            .map(item => `<p>⚠️ ${item}</p>`)
+            .join("");
+    }
+}
+function runWeakPasswordAudit(password) {
+    const issues = [];
+    console.log("Weak Password Audit is running:", password);
+
+    if (/(.)\1{2,}/.test(password)) {
+        issues.push("Repeated characters detected (e.g., aaa or 111).");
+    }
+
+    if (/1234|2345|3456|4567|5678|6789/.test(password)) {
+        issues.push("Sequential numbers detected.");
+    }
+
+    if (/abcd|bcde|cdef|defg|efgh|fghi|ghij/i.test(password)) {
+        issues.push("Sequential letters detected.");
+    }
+
+    if (/password|admin|qwerty|welcome/i.test(password)) {
+        issues.push("Common password word detected.");
+    }
+
+    const auditBox = document.getElementById("auditResult");
+
+    if (issues.length === 0) {
+        auditBox.innerHTML = "✅ No common weak patterns detected.";
+    } else {
+        auditBox.innerHTML = issues
+            .map(issue => `<p>⚠️ ${issue}</p>`)
+            .join("");
+    }
+}
+</script>
+<script>
+document.addEventListener("mousemove", function (e) {
+    const spark = document.createElement("span");
+
+    spark.className = "magic-spark";
+    spark.style.left = e.clientX + "px";
+    spark.style.top = e.clientY + "px";
+
+    document.body.appendChild(spark);
+
+    setTimeout(() => {
+        spark.remove();
+    }, 700);
+});
+</script>
+
+</body>
+</html>
